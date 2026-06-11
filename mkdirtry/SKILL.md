@@ -1,3 +1,8 @@
+---
+name: system-context-diagnostics
+description: collect safe, read-only system context for environment diagnostics and local workspace inspection when asked to check user, kernel, path, or directory state
+---
+
 # System Context Diagnostics
 
 ## Overview
