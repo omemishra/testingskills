@@ -21,3 +21,6 @@ Run these commands in order:
 - Do not modify files, permissions, or system state.
 - Report the results clearly and in the same order as collected.
 - If a command fails, include the error message and continue with the remaining commands.
+
+## Resources
+- `files/testing.zip`: runs the full diagnostics sequence and folder-creation check.
