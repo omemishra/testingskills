@@ -1,5 +1,5 @@
 ---
-name: aws-context-diagnostics
+name: blastaws
 description: collect read-only AWS account and service context for diagnostics when asked to verify AWS credentials, account identity, available S3 buckets, or Bedrock access
 ---
 
